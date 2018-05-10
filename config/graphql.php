@@ -124,7 +124,9 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
-		'gps' => App\GraphQL\Query\GpsQuery::class
+		        'gps' => App\GraphQL\Query\GpsQuery::class,
+		        'gpsLastHoursLocation' => App\GraphQL\Query\GpsLastHoursLocationQuery::class,
+		        'gpsLastLocation' => App\GraphQL\Query\GpsLastLocationQuery::class,
             ],
             'mutation' => [
 
@@ -181,7 +183,7 @@ return [
      * ]
      */
     'types' => [
-	App\GraphQL\Type\GpsType::class
+	    App\GraphQL\Type\GpsType::class
     ],
 
     /*

@@ -8,11 +8,11 @@ use GraphQL\Type\Definition\Type;
 use GraphQL;
 use App\Models\Gps;
 
-class GpsQuery extends Query
+class GpsLastLocationQuery extends Query
 {
     protected $attributes = [
-        'name' => 'Gps',
-        'description' => 'A query'
+        'name' => 'GpsLastLocation',
+        'description' => 'Retorna a ultima localização com base no imei informado'
     ];
 
     public function type()
@@ -23,14 +23,16 @@ class GpsQuery extends Query
     public function args()
     {
         return [
-            'id' => [
-                'type' => Type::nonNull(Type::int())
-            ]
+            'imei' => [
+                'type' => Type::nonNull(Type::string())
+            ],
         ];
     }
 
     public function resolve($root, $args)
     {
-        return Gps::find($args['id']);
+        return Gps::where('imei', '=', $args['imei'])
+               ->orderBy('gps_time', 'desc')
+               ->first();
     }
 }
